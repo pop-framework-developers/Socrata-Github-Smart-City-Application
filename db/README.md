@@ -1,4 +1,5 @@
  This folder contains a SQLite database called OpenDataCatalog.sqlite with the next elements:
+ 
     - A table called socrata_customer with the next fields:
         -"id_customer" INTEGER PRIMARY KEY NOT NULL
         - "customer_name" TEXT
