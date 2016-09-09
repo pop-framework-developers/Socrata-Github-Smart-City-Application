@@ -8,6 +8,6 @@ It is neccesary to do the next steps:
 - Socrata open data portals may have 2 different json which all the information about the datasets of the portal: dcat.json and     data.json and, in many cases, they don't contain the same information. So, it is necessary to execute 2 different scripts:
     - socrata_dcat.py stores the info contained in dcat.json files about all datasets of every Socrata Open Data Portal in the socrata_dcat table of the OpenDataCatalogs.sqlite database  
     - socrata_data.py stores the info contained in data.json files about all datasets of every Socrata Open Data Portal in the socrata_data table of the OpenDataCatalogs.sqlite database 
--Create 2 views that only contain the data in dcat.json and data.json of USA cities. So, it is necessary to execute 2 different     scripts:      
+- Create 2 views that only contain the data in dcat.json and data.json of USA cities. So, it is necessary to execute 2 different     scripts:      
     - create_view_socrata_data_city_usa.py creates the view Socrata_DATA_CITY_USA in the socrata_dcat table of the OpenDataCatalogs.sqlite database  
     - create_view_socrata_dcat_city_usa.py creates the view Socrata_DCAT_CITY_USA in the socrata_dcat table of the OpenDataCatalogs.sqlite database
