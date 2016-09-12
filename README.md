@@ -1,6 +1,6 @@
 # Socrata-Github-Smart-City-Application
 The Application is divided in the next subfolders (read the README.md for the details of everyone):
-- db
+- db (contains the database shared by all the processes of this application)
 - Socrata Dataset Gatherer
 - Semi-automated-categorization-process
 - Github ETL
