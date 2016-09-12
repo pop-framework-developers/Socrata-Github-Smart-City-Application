@@ -17,9 +17,13 @@ For this specific application to Smart Cities, the proposed categories are:
 - Urban Planning & Housing
 - Welfare
 
+As a result of this process, the datasets that can be categorized will include this category in the  usa_city_datasets_categorized table.
+
 In this specific application, the experts had to categorize the 8960 datasets available of USA cities with theme or keywords.
-The experts divided this process into two steps:
 
-Firstly, they developed a script that categorizes every dataset with a theme to one of the categories. The script is called Semi_automated_categorization.py and is available in this folder. As a result, 8299 datasets were categorized to one of the categories, 650 datasets without theme still had category as NULL and  11 datasets were categorized as 'Others' because none of them had a clear category and so, they were discarded.
+Firstly, they studied the different 215 themes of the datasets and developed a script that categorizes every dataset in a category according to its theme. The script is called Semi_automated_categorization.py and is available in this folder. As a result, 8299 datasets were categorized to one of the categories, 650 datasets without theme still had category as NULL and  11 datasets were categorized as 'Others' because none of them had a clear category and so, they were discarded due to they were not useful to be used in the application.
 
-Hablar de la opción de desechar los temas o de coger los keywords, title y descrption y analizarlos a mano, el rsutlado en nuestro caso de lo que se hizo puede verse con la consulta
+At this point, the experts had to choose between discarding the 650 datasets without theme or trying to categorize them, one by one, using the keyword field together with the title and the description fields. In this case the experts chose the second option and the result of this 'one by one' categorization of the 650 datasets without theme can be see executing this query against the OpenDataCatalogs.sqlite database:
+- select distinct identifier,category,keyword,title,description from  USA_CITY_DATASETS_CATEGORIZED  WHERE theme="" order by category,keyword,title,description
+
+At the end ot this process, the table usa_city_datasets_categorized of the OpenDataCatalogs.sqlite contained the datasets of USA cities together with their category.
