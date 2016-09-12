@@ -16,6 +16,7 @@ For this specific application to Smart Cities, the proposed categories are:
 - Transport & Infrastructure
 - Urban Planning & Housing
 - Welfare
+
 In this specific application, the experts had to categorize the 8960 datasets available of USA cities with theme or keywords.
 The experts divided this process into two steps:
 - First, they developed a script that categorizes every dataset with a theme to one of the categories. The script is called Semi_automated_categorization.py and is available in this folder.
