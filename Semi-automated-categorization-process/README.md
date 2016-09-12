@@ -19,8 +19,7 @@ For this specific application to Smart Cities, the proposed categories are:
 
 In this specific application, the experts had to categorize the 8960 datasets available of USA cities with theme or keywords.
 The experts divided this process into two steps:
-- First, they developed a script that categorizes every dataset with a theme to one of the categories. The script is called Semi_automated_categorization.py and is available in this folder.
 
-As a result, 8299 datasets were categorized to one of the categories, 650 datasets without theme still had category as NULL and  11 datasets were categorized as 'Others' because none of them had a clear category and so, they were discarded.
+Firstly, they developed a script that categorizes every dataset with a theme to one of the categories. The script is called Semi_automated_categorization.py and is available in this folder. As a result, 8299 datasets were categorized to one of the categories, 650 datasets without theme still had category as NULL and  11 datasets were categorized as 'Others' because none of them had a clear category and so, they were discarded.
 
 Hablar de la opción de desechar los temas o de coger los keywords, title y descrption y analizarlos a mano, el rsutlado en nuestro caso de lo que se hizo puede verse con la consulta
