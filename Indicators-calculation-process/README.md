@@ -16,10 +16,4 @@ create view datasets_categorized_referenced_and_distinct_repository_id_referenci
 create view datasets_categorized_not_referenced as select distinct identifier,category,NULL as repository_id from usa_city_datasets_categorized   where identifier not in (select identifier from datasets_categorized_referenced_and_distinct_repository_id_referencing) order by category,identifier
 ----------------------------------Tercera 3
 
-create view useful_data_for_indicators as select distinct d.identifier,d.category,d.repository_id,total_contributors,total_contributions,subscribers_count,created_at,updated_at from dataset_category_repository as d left outer  join ( select * from measures_repository where  created_at!="" ) as r on (d.repository_id=r.repository_id)
 
-create view useful_data_for_indicators as select distinct d.identifier,d.category,d.repository_id,total_contributors,total_contributions,subscribers_count,created_at,updated_at from dataset_category_repository as d left outer  join ( select * from measures_repository where  created_at!="" ) as r on (d.repository_id=r.repository_id)  order by d.category,d.identifier,d.repository_id;
-
-create view repository_useful_data_for_indicators as select distinct repository_id,total_contributors,total_contributions,subscribers_count,created_at,updated_at from measures_repository where  created_at!="" order by repository_id;
-
-create view dataset_category_repository_useful_data_for_indicators as select * from dataset_category_repository d left join repository_useful_data_for_indicators   as r on d.repository_id=r.repository_id where d.repository_id="" or d.repository_id in (select repository_id from  repository_useful_data_for_indicators where created_at is not null)
