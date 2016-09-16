@@ -12,7 +12,9 @@ create view repository_useful_data_for_indicators as select distinct repository_
 create view datasets_categorized_referenced_and_distinct_repository_id_referencing as select distinct c.identifier,c.category,d.repository_id from results_search_open_data as d  join usa_city_datasets_categorized as c on (d.identifier=c.identifier)  where repository_id in (select repository_id from repository_useful_data_for_indicators) order by c.category,c.identifier,d.repository_id
 
 ----------------------------------Segunda 2
-
+----------------------------------Tercera 3 Devuelve el identificador categorizado de los datasets no referenciados por repositorios útiles
+create view datasets_categorized_not_referenced as select distinct identifier,category,NULL as repository_id from usa_city_datasets_categorized   where identifier not in (select identifier from datasets_categorized_referenced_and_distinct_repository_id_referencing) order by category,identifier
+----------------------------------Tercera 3
 
 create view useful_data_for_indicators as select distinct d.identifier,d.category,d.repository_id,total_contributors,total_contributions,subscribers_count,created_at,updated_at from dataset_category_repository as d left outer  join ( select * from measures_repository where  created_at!="" ) as r on (d.repository_id=r.repository_id)
 
