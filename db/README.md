@@ -1,5 +1,5 @@
  This folder contains a SQLite database called OpenDataCatalog.sqlite (compressed in OpenDataCatalog.zip).
- This database is the result of carrying out in the correct order the different processes and executing the scripts of the Socrata Github Smart City Application.
+ This database is the result of carrying out, in the correct order, the different processes and executing the scripts of the Socrata Github Smart City Application.
  Thus, the database contains the next elements:
  
  - A table called socrata_customers, which stores data about the organizations using Socrata Open Data technology, with the next characteristics:
@@ -62,4 +62,17 @@
  - "DESCRIPTION" TEXT
  - "CATEGORY" TEXT
  
- 
+- A table called results_search_open_data, which stores the info retrieved from Github with a row for every reference from a Github repository to a dataset of USA cities. In summary, this table has the next characteristics:
+  - "identifier"TEXT
+  - "theme"	TEXT
+  - "keyword" TEXT
+  - "file_name" TEXT
+  - "file_path" TEXT
+  - "file_url" TEXT
+  - "repository_id" TEXT
+  - "repository_name" TEXT
+  - "repository_url" TEXT
+  - "user_id" TEXT
+  - "user_name" TEXT
+  - "user_url" TEXT
+  - "score" TEXT
