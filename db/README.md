@@ -76,3 +76,27 @@
   - "user_name" TEXT
   - "user_url" TEXT
   - "score" TEXT
+
+- A table called measures_repository, which stores a row for every repository of Github which references datasets of USA cities with useful information about the repository. In summary, this table has the next characteristics:
+  - "repository_id" TEXT
+  - "user_id" TEXT
+  - "stargazers_count" TEXT
+  - "watchers_count" TEXT
+  - "language" TEXT
+  - "forks_count" TEXT
+  - "subscribers_count" TEXT
+  - "network_count" TEXT
+  - "created_at" TEXT
+  - "updated_at" TEXT
+  - "pushed_at" TEXT
+  - "total_contributors" TEXT
+  - "total_contributions" TEXT
+
+- A view called repository_useful_data_for_indicators, which only shows repository_id, total_contributors, total_contributions, subscribers_count, created_at, updated_at of the repositories in the measures_repository table when info about the creation date exists (created_at!=""). These fields are those ones used to calculate most of the indicators of this Application. It is made with the next query:
+  - select distinct repository_id,total_contributors,total_contributions,subscribers_count,created_at,updated_at from measures_repository where  created_at!="" order by repository_id
+  
+- A view called datasets_categorized_referenced_and_distinct_repository_id_referencing, which only shows a row with  identifier, category and repository_id of every dataset of USA cities referenced by a repository of Github. Although a repository references several times a dataset, only appears 1 row in the view. It is made with the next query:
+  - select distinct c.identifier,c.category,d.repository_id from results_search_open_data as d  join usa_city_datasets_categorized as c on (d.identifier=c.identifier) where repository_id in (select repository_id from repository_useful_data_for_indicators) order by c.category,c.identifier,d.repository_id
+ 
+- A view called datasets_categorized_not_referenced, which only shows a row with  identifier, category and repository_id as NULL of every dataset of USA cities not referenced by a repository of Github. It is made with the next query:
+  - select distinct identifier,category,NULL as repository_id from usa_city_datasets_categorized   where identifier not in (select identifier from datasets_categorized_referenced_and_distinct_repository_id_referencing) order by category,identifier
