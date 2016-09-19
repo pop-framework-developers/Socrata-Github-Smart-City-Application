@@ -100,3 +100,32 @@
  
 - A view called datasets_categorized_not_referenced, which only shows a row with  identifier, category and repository_id as NULL of every dataset of USA cities not referenced by a repository of Github. It is made with the next query:
   - select distinct identifier,category,NULL as repository_id from usa_city_datasets_categorized   where identifier not in (select identifier from datasets_categorized_referenced_and_distinct_repository_id_referencing) order by category,identifier
+
+- A view called categories_total_references, which shows, for every category, the number of total references from Github to datasets of the category. It is made with the next query:
+  - select category,count(*) as total_references from datasets_categorized_referenced_and_distinct_repository_id_referencing group by category order by category
+
+- A view called categories_total_datasets_in, which shows, for every category, the number of datasets of the category, referenced or not in Github. It is made with the next query:
+  - select category,count (distinct identifier) total_datasets_in_category from usa_city_datasets_categorized group by category order by category
+
+- A view called categories_total_datasets_no_referenced, which shows, for every category, the number of datasets of the category not referenced in Github. It is made with the next query:
+  - select category,count (distinct identifier) as total_datasets_no_referenced from datasets_categorized_not_referenced group by category order by category 
+
+- A view called categories_total_datasets_referenced, which shows, for every category, the number of datasets of the category referenced in Github. It is made with the next query:
+  - select category,count (distinct identifier) as total_datasets_referenced from datasets_categorized_referenced_and_distinct_repository_id_referencing group by category order by category
+
+- A view called categories_total_repositories_referencing, which shows, for every category, the number of distinct repositories of Github referencing datasets of the category. It is made with the next query:
+  - select category,count (distinct repository_id) as total_repositories_referencing from datasets_categorized_referenced_and_distinct_repository_id_referencing group by category order by category
+
+- A view called categories_contributors, which shows, for every category, the sum of total_contributors of the distinct repositories referencing every category. It is made with the next query:
+  - select category,sum(total_contributors) as contributors from (select distinct d.repository_id,r.total_contributors,d.category from repository_useful_data_for_indicators as r join datasets_categorized_referenced_and_distinct_repository_id_referencing as d on d.repository_id=r.repository_id order by d.repository_id,r.total_contributors,d.category) group by category order by category
+  
+- A view called categories_contributions, which shows, for every category, the sum of total_contributions of the distinct repositories referencing every category. It is made with the next query:
+  - select category, sum(total_contributions) as contributions from (select distinct d.repository_id,r.total_contributions,d.category from repository_useful_data_for_indicators as r join datasets_categorized_referenced_and_distinct_repository_id_referencing as d on d.repository_id=r.repository_id order by d.repository_id,r.total_contributions,d.category) group by category order by category
+  
+- A view called categories_subscribers, which shows, for every category, the sum of  subscribers_count of the distinct repositories referencing every category. It is made with the next query:
+  - select category, sum(subscribers_count) as subscribers from (select distinct d.repository_id,r.subscribers_count,d.category from repository_useful_data_for_indicators as r join datasets_categorized_referenced_and_distinct_repository_id_referencing as d on d.repository_id=r.repository_id order by d.repository_id,r.subscribers_count,d.category) group by category order by category
+
+- A view called categories_madurity_total, which shows, for every category, the total maturity of the distinct repositories referencing every category. Maturity is computed using 2 lifetimes, project lifetime (PL) and last update lifetime (LUL) and the formula is: PL/LUL. Thus, maturity projects will be those ones with elderly PL ann a low LUL. It is made with the next query:
+  - select category, round(sum( (strftime('%s','2015-11-24 19:19:39 ')-strftime('%s',created_at))/((strftime('%s','2015-11-24 19:19:39 ')-strftime('%s',updated_at))*1.0)),3) as madurity_total from (select distinct d.repository_id,r.created_at,r.updated_at,d.category from repository_useful_data_for_indicators as r join datasets_categorized_referenced_and_distinct_repository_id_referencing as d on d.repository_id=r.repository_id order by d.repository_id,r.created_at,r.updated_at,d.category) group by category order by category
+
+
