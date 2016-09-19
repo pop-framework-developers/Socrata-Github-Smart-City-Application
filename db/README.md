@@ -29,7 +29,7 @@
   - PRIMARY KEY (identifier,id_customer)
   - FOREIGN KEY(id_customer) REFERENCES "socrata_customers"(id_customer)
   
-  A table called socrata_dcat, which stores the info of every dataset contained in the dcat.json of socrata portals, with the next characteristics:
+ - A table called socrata_dcat, which stores the info of every dataset contained in the dcat.json of socrata portals, with the next characteristics:
   - "identifier" TEXT NOT NULL
   - "webService" TEXT
   - "accessURL" TEXT
@@ -45,9 +45,21 @@
   - PRIMARY KEY (identifier,id_customer)
   - FOREIGN KEY(id_customer) REFERENCES "socrata_customers"(id_customer)
   
-  A view called Socrata_DATA_CITY_USA, which shows useful information of every dataset contained in the data.json of socrata portals of USA cities, made with the next query:
+ - A view called Socrata_DATA_CITY_USA, which shows useful information of every dataset contained in the data.json of socrata portals of USA cities, made with the next query:
   - select distinct identifier, keyword, theme, title,description from socrata_data where id_customer in (select id_customer from socrata_customers where type="City" and country="USA")
   
-  A view called Socrata_DCAT_CITY_USA, which shows useful information of every dataset contained in the dcat.json of socrata portals of USA cities, made with the next query:
+ - A view called Socrata_DCAT_CITY_USA, which shows useful information of every dataset contained in the dcat.json of socrata portals of USA cities, made with the next query:
   - select distinct identifier, keyword, theme, title,description from socrata_data where id_customer in (select id_customer from socrata_customers where type="City" and country="USA")
   
+- A view called USA_CITY_IDS_WITH_THEME_OR_KEYWORD, which only shows identifier, theme and keyword of the USA cities datasets when, at least, a theme or a keyword exists because without one of them it may be too difficult to categorize the datasets. This view is the one used by the Github-ETL process for searching references to the datasets in Github. It is made with the next query:
+  - select distinct identifier,theme,keyword from (select identifier,theme,keyword from socrata_data_city_usa union select identifier,theme,keyword from socrata_dcat_city_usa) where theme!="" or keyword !="" order by theme,keyword
+ 
+- A table called usa_city_datasets_categorized, which stores the same rows as the USA_CITY_IDS_WITH_THEME_OR_KEYWORD but with 3 more columns: title, description and category. That is, those ones when, at least, a theme or keyword exist. This table is the one used by the experts for carrying out the categorization process of the datasets. So, initially, the field category is null for every row. It also contains the title and the description of every row for helping in those cases where experts might be doubting among one or more categories when a dataset does not contain a theme. In summary, this table has the next characteristics:
+ - "IDENTIFIER" TEXT PRIMARY KEY  NOT NULL
+ - "THEME" TEXT
+ - "KEYWORD" TEXT
+ - "TITLE" TEXT
+ - "DESCRIPTION" TEXT
+ - "CATEGORY" TEXT
+ 
+ 
