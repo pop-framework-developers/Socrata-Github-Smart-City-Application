@@ -1,7 +1,6 @@
 This folder contains the processes that aim to get required data from Github. These processes have been developed by using Pentaho Data Integration (http://community.pentaho.com/projects/data-integration/). There are two processes:
 
-1. get_opendata_github_data.ktr. This process gets URLs from files in Github that refers to a unique open-dataset identifier of Socrata. The following parameters are required: Github connection data (parameters client_id, client_secret, token, and user), as well as path and file name of the SQLite database where the Socrata identifiers are stored (parameter sqlite_file).	This process	
-uses the identifier stored in the  USA_CITY_IDS_WITH_THEME_OR_KEYWORD view (from SQLite database) to look for references in Github code, the result of this search is the results_search_open_data.csv (compressed in a ZIP file). This file has the following fields:
+1. get_opendata_github_data.ktr. This process gets URL from searching into files in Github that refers to a unique open-dataset identifier of Socrata. The following parameters are required: Github connection data (parameters client_id, client_secret, token, and user), as well as path and file name of the SQLite database where the Socrata identifiers are stored (parameter sqlite_file).	This process uses the identifier stored in the  USA_CITY_IDS_WITH_THEME_OR_KEYWORD view (from SQLite database) to look for references in Github code, the result of this search is the results_search_open_data.csv (compressed in a ZIP file). This file has the following fields:
 identifier: of the Socrata dataset
 theme: topic of the dataset
 keyword: keywords related to the dataset
@@ -16,5 +15,6 @@ user_name: name of the user that owns the repository that contains a file that r
 user_url: URL of the user that owns the repository that contains a file that refers to the dataset with the identifier. 	
 score: given by Github to the search (the higher, the better). 	
 
+-get_opendata_github_repositories_and_users.ktr.  This process gets output data from previous process (get_opendata_github_data.ktr) and stores data from repositories into a file (these are repositories that reference to open datasets).The following parameters are required: Github connection data (parameters client_id, client_secret, token, and user), as well as path and file name of the file (by default, it is results_search_open_data.csv) where results of previous process (get_opendata_github_data.ktr) is stored (parameter sqlite_file).	This process	
 
--get_opendata_github_repositories_and_users.ktr.  the data gathered about the repositories referencing dataset of USA cities is stored in measures_repository.csv....
+The target the data gathered about the repositories referencing dataset of USA cities is stored in measures_repository.csv....
