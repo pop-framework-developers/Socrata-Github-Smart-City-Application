@@ -20,6 +20,11 @@
             <description/>
         </parameter>
         <parameter>
+            <name>sqlite_file</name>
+            <default_value/>
+            <description/>
+        </parameter>
+        <parameter>
             <name>token</name>
             <default_value/>
             <description/>
@@ -97,10 +102,10 @@
   </notepads>
   <connection>
     <name>sqlite_open_data</name>
-    <server>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;</server>
+    <server/>
     <type>SQLITE</type>
     <access>Native</access>
-    <database>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x2f;..&#x2f;db&#x2f;OpenDataCatalogs.sqlite</database>
+    <database>&#x24;&#x7b;sqlite_file&#x7d;</database>
     <port>-1</port>
     <username/>
     <password>Encrypted </password>
@@ -135,8 +140,8 @@
   <hop> <from>Get results 2</from><to>Select values</to><enabled>Y</enabled> </hop>
   <hop> <from>Select values &#x28;true path&#x29;</from><to>Append streams</to><enabled>Y</enabled> </hop>
   <hop> <from>Select values</from><to>Append streams</to><enabled>Y</enabled> </hop>
-  <hop> <from>Append streams</from><to>Read JSON input</to><enabled>Y</enabled> </hop>
-  <hop> <from>Read JSON input</from><to>text file outout</to><enabled>Y</enabled> </hop>
+  <hop> <from>Append streams</from><to>Get repository and user data</to><enabled>Y</enabled> </hop>
+  <hop> <from>Get repository and user data</from><to>text file output</to><enabled>Y</enabled> </hop>
   <hop> <from>Get URL for searching next page</from><to>Block this step until steps finish</to><enabled>Y</enabled> </hop>
   <hop> <from>Block this step until steps finish</from><to>Delay row 2</to><enabled>Y</enabled> </hop>
   <hop> <from>Obtain Github user data</from><to>Base URL</to><enabled>Y</enabled> </hop>
@@ -571,7 +576,7 @@
     </step>
 
   <step>
-    <name>Read JSON input</name>
+    <name>Get repository and user data</name>
     <type>JsonInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -974,7 +979,7 @@
     </step>
 
   <step>
-    <name>text file outout</name>
+    <name>text file output</name>
     <type>TextFileOutput</type>
     <description/>
     <distribute>Y</distribute>
