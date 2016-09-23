@@ -30,7 +30,7 @@ For this specific application to Smart Cities, the proposed categories and examp
 - Urban Planning & Housing
   - Area Plans,Buildings,City Facilities,City Parks and Tree Data,Construction,Development,Housing,Land Use,Urban Planning
 - Welfare
-  -Insurance, Life Enrichment, Quality of Life,Pension,Retirement,Sanitation,Social Services
+  - Insurance, Life Enrichment, Quality of Life,Pension,Retirement,Sanitation,Social Services
 
 As a result of this process, the datasets that can be categorized will include this category in the  usa_city_datasets_categorized table.
 
